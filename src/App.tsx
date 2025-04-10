@@ -1,19 +1,13 @@
+// src/App.tsx
+import React from "react";
+import Board from "./pages/Board";
 
-
-import './App.css'
-
-function App() {
-
-
+const App: React.FC = () => {
   return (
-    <>
-      <div>
-      <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
-   </div>
-    </>
-  )
-}
+    <div className="min-h-screen bg-gray-50 p-4">
+      <Board />
+    </div>
+  );
+};
 
-export default App
+export default App;

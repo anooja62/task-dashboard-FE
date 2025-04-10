@@ -1,0 +1,23 @@
+{
+    "tasks": [
+      {
+        "id": 1,
+        "title": "Design wireframes",
+        "description": "Create wireframes for dashboard UI",
+        "status": "To Do"
+      },
+      {
+        "id": 2,
+        "title": "Setup Tailwind CSS",
+        "description": "Integrate Tailwind into React project",
+        "status": "In Progress"
+      },
+      {
+        "id": 3,
+        "title": "Initial commit",
+        "description": "Push project skeleton to GitHub",
+        "status": "Done"
+      }
+    ]
+  }
+  

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { DndContext, closestCenter } from "@dnd-kit/core";
-import { arrayMove, SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
+import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
 import axios from "axios";
 import { Button } from "../components/Button";
 import TaskModal from "../components/TaskModal";
 import Column from "../components/Column";
-import { Task } from "../types/task"
+import { Task } from "../types/task";
 
 const STATUSES = ["To Do", "In Progress", "Done"];
 
@@ -43,28 +43,33 @@ export default function Board() {
   };
 
   return (
-    <div className="p-4">
-      <div className="flex justify-between items-center mb-4">
+    <div className="p-4 max-w-7xl mx-auto min-h-screen">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-2">
         <h1 className="text-2xl font-bold">Task Management</h1>
         <Button onClick={() => setModalOpen(true)}>Add New Task</Button>
       </div>
+
       <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {/* Responsive Scroll Container */}
+        <div className="flex flex-col gap-4 md:grid md:grid-cols-3 md:gap-4 overflow-y-auto md:overflow-visible max-h-[80vh] pb-2">
           {STATUSES.map((status) => (
             <SortableContext
               key={status}
               items={tasks.filter((task) => task.status === status).map((t) => t.id.toString())}
               strategy={verticalListSortingStrategy}
             >
-              <Column
-                title={status}
-                status={status}
-                tasks={tasks.filter((task) => task.status === status)}
-              />
+              <div className="min-w-full md:min-w-0">
+                <Column
+                  title={status}
+                  status={status}
+                  tasks={tasks.filter((task) => task.status === status)}
+                />
+              </div>
             </SortableContext>
           ))}
         </div>
       </DndContext>
+
       {isModalOpen && <TaskModal onClose={() => setModalOpen(false)} onSave={addTask} />}
     </div>
   );

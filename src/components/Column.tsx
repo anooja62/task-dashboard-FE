@@ -10,14 +10,16 @@ interface ColumnProps {
 }
 
 const Column: React.FC<ColumnProps> = ({ title, status, tasks }) => {
-  const { setNodeRef } = useDroppable({ id: status });
+  const { setNodeRef, isOver } = useDroppable({ id: status });
 
   return (
     <div
       ref={setNodeRef}
-      className="bg-gray-100 rounded-lg p-3 sm:p-4 shadow-md min-w-[280px] flex-shrink-0 max-h-[70vh] overflow-y-auto scrollbar-thin"
+      className={`bg-gray-100 rounded-lg p-3 sm:p-4 shadow-md min-w-[280px] flex-shrink-0 ${
+        isOver ? "ring-2 ring-blue-400" : ""
+      }`}
     >
-      <h2 className="text-lg sm:text-xl font-semibold mb-3 sticky top-0 bg-gray-100 z-10">{title}</h2>
+      <h2 className="text-lg sm:text-xl font-semibold mb-3">{title}</h2>
       <div className="space-y-2">
         {tasks.map((task) => (
           <TaskCard key={task.id} task={task} />

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { DndContext, closestCenter } from "@dnd-kit/core";
-import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
+import { DndContext, closestCenter, DragEndEvent } from "@dnd-kit/core";
 import axios from "axios";
 import { Button } from "../components/Button";
 import TaskModal from "../components/TaskModal";
@@ -35,11 +34,17 @@ export default function Board() {
     fetchTasks();
   }, []);
 
-  const handleDragEnd = (event: any) => {
+  const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
-    if (!over) return;
-    const newStatus = over.id;
-    updateTaskStatus(Number(active.id), newStatus);
+    if (!over || !active) return;
+
+    const taskId = Number(active.id);
+    const newStatus = over.id.toString(); // Column ID = status
+
+    const task = tasks.find((t) => t.id === taskId);
+    if (task && task.status !== newStatus) {
+      updateTaskStatus(taskId, newStatus);
+    }
   };
 
   return (
@@ -50,22 +55,14 @@ export default function Board() {
       </div>
 
       <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
-        {/* Responsive Scroll Container */}
-        <div className="flex flex-col gap-4 md:grid md:grid-cols-3 md:gap-4 overflow-y-auto md:overflow-visible max-h-[80vh] pb-2">
+        <div className="flex flex-col gap-4 md:grid md:grid-cols-3 md:gap-4 max-h-[80vh] overflow-y-auto pb-2">
           {STATUSES.map((status) => (
-            <SortableContext
+            <Column
               key={status}
-              items={tasks.filter((task) => task.status === status).map((t) => t.id.toString())}
-              strategy={verticalListSortingStrategy}
-            >
-              <div className="min-w-full md:min-w-0">
-                <Column
-                  title={status}
-                  status={status}
-                  tasks={tasks.filter((task) => task.status === status)}
-                />
-              </div>
-            </SortableContext>
+              title={status}
+              status={status}
+              tasks={tasks.filter((task) => task.status === status)}
+            />
           ))}
         </div>
       </DndContext>

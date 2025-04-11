@@ -7,7 +7,7 @@ const middlewares = jsonServer.defaults();
 server.use(middlewares);
 server.use(router);
 
+// 👇 required by Vercel
 module.exports = (req, res) => {
-  // let json-server handle the request
   server(req, res);
 };

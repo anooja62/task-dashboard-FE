@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import{ useEffect, useState } from "react";
 import { DndContext, pointerWithin, DragEndEvent } from "@dnd-kit/core";
 import axios from "axios";
 import Column from "../components/Column";
 import TaskModal from "../components/TaskModal";
 import { Button } from "../components/Button";
-import { Task } from "../types/task";
+import { Task, TaskStatus } from "../types/task"; 
 
 const STATUSES = ["To Do", "In Progress", "Done"];
 
@@ -17,25 +17,32 @@ export default function Board() {
   }, []);
 
   const fetchTasks = async () => {
-    const res = await axios.get("http://localhost:3000/tasks");
+    const res = await axios.get<Task[]>("http://localhost:3000/tasks");
     setTasks(res.data);
   };
+  
 
   const addTask = async (task: Task) => {
-    const res = await axios.post("http://localhost:3000/tasks", {
+    const res = await axios.post<Task>("http://localhost:3000/tasks", {
       title: task.title,
       description: task.description,
       status: task.status,
     });
     setTasks((prev) => [...prev, res.data]);
   };
+  
 
   const updateTaskStatus = async (id: string, newStatus: string) => {
     const task = tasks.find((t) => t.id === id);
     if (!task || task.status === newStatus) return;
-
-    const updatedTask = { ...task, status: newStatus };
-    await axios.put(`http://localhost:3000/tasks/${id}`, updatedTask);
+  
+    const updatedTask: Task = {
+      ...task,
+      status: newStatus as TaskStatus, // ✅ cast to TaskStatus
+    };
+  
+    await axios.put<Task>(`http://localhost:3000/tasks/${id}`, updatedTask);
+  
     setTasks((prevTasks) =>
       prevTasks.map((t) => (t.id === id ? updatedTask : t))
     );

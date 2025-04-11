@@ -1,9 +1,10 @@
 // src/types/task.ts
+export type TaskStatus = "To Do" | "In Progress" | "Done";
 
 export interface Task {
-    id: number;
+    id: string;
     title: string;
     description?: string;
-    status: "To Do" | "In Progress" | "Done";
+    status: TaskStatus;
   }
   

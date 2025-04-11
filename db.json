@@ -10,13 +10,13 @@
       "id": "2",
       "title": "Setup Tailwind CSS",
       "description": "Integrate Tailwind into React project",
-      "status": "In Progress"
+      "status": "Done"
     },
     {
       "id": "3",
       "title": "Initial commit",
       "description": "Push project skeleton to GitHub",
-      "status": "Done"
+      "status": "In Progress"
     },
     {
       "id": "1744302858397",
@@ -29,6 +29,12 @@
       "title": "New Task",
       "description": "in progress",
       "status": "In Progress"
+    },
+    {
+      "id": "10ad",
+      "title": "Task 1",
+      "description": "desc",
+      "status": "Done"
     }
   ]
 }

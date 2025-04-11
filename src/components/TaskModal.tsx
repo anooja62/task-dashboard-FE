@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Task } from "../types/task";
+import { Task, TaskStatus } from "../types/task";
 import { v4 as uuidv4 } from "uuid";
 interface TaskModalProps {
   onClose: () => void;
@@ -9,7 +9,7 @@ interface TaskModalProps {
 const TaskModal: React.FC<TaskModalProps> = ({ onClose, onSave }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [status, setStatus] = useState("To Do");
+  const [status, setStatus] = useState<TaskStatus>("To Do");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -51,14 +51,15 @@ const TaskModal: React.FC<TaskModalProps> = ({ onClose, onSave }) => {
           <div>
             <label className="block font-medium text-sm sm:text-base">Status</label>
             <select
-              value={status}
-              onChange={(e) => setStatus(e.target.value)}
-              className="w-full mt-1 border rounded px-3 py-2 text-sm"
-            >
-              <option>To Do</option>
-              <option>In Progress</option>
-              <option>Done</option>
-            </select>
+  value={status}
+  onChange={(e) => setStatus(e.target.value as TaskStatus)} 
+  className="w-full mt-1 border rounded px-3 py-2 text-sm"
+>
+  <option value="To Do">To Do</option>
+  <option value="In Progress">In Progress</option>
+  <option value="Done">Done</option>
+</select>
+
           </div>
           <div className="flex flex-col sm:flex-row justify-end sm:space-x-2 space-y-2 sm:space-y-0">
             <button

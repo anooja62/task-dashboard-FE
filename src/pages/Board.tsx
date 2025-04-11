@@ -1,4 +1,4 @@
-import{ useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { DndContext, pointerWithin, DragEndEvent } from "@dnd-kit/core";
 import axios from "axios";
 import Column from "../components/Column";
@@ -17,13 +17,13 @@ export default function Board() {
   }, []);
 
   const fetchTasks = async () => {
-    const res = await axios.get<Task[]>("http://localhost:3000/tasks");
+    const res = await axios.get<Task[]>("https://tasks-api-0wyn.onrender.com/tasks");
     setTasks(res.data);
   };
   
 
   const addTask = async (task: Task) => {
-    const res = await axios.post<Task>("http://localhost:3000/tasks", {
+    const res = await axios.post<Task>("https://tasks-api-0wyn.onrender.com/tasks", {
       title: task.title,
       description: task.description,
       status: task.status,
@@ -41,7 +41,7 @@ export default function Board() {
       status: newStatus as TaskStatus, // ✅ cast to TaskStatus
     };
   
-    await axios.put<Task>(`http://localhost:3000/tasks/${id}`, updatedTask);
+    await axios.put<Task>(`https://tasks-api-0wyn.onrender.com/tasks/${id}`, updatedTask);
   
     setTasks((prevTasks) =>
       prevTasks.map((t) => (t.id === id ? updatedTask : t))

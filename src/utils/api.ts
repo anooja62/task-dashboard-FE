@@ -1,9 +1,9 @@
-// src/utils/api.ts
+
 
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:3000", // Replace with your mock API URL
+  baseURL: "https://tasks-api-0wyn.onrender.com", 
   headers: {
     "Content-Type": "application/json",
   },

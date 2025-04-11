@@ -1,67 +1,48 @@
 # 📝 Task Management Dashboard
 
-A responsive Kanban-style task board built with **React**, **TypeScript**, **Tailwind CSS**, and **@dnd-kit** for smooth drag-and-drop task management.
+A Kanban-style task board built with **React**, **TypeScript**, **Tailwind CSS**, and **@dnd-kit** — integrated with a hosted fake REST API via JSON Server on **Render**.
+
+---
 
 ## 🚀 Features
 
-- 📌 Create tasks with title, description, and status
-- 🟦 Columns for "To Do", "In Progress", and "Done"
-- 🔀 Drag-and-drop tasks between columns
-- 🔧 Persist task data with a JSON backend (`json-server`)
-- 📱 Fully responsive layout for mobile and desktop
+- ✅ Add new tasks with title, description, and status
+- 🔁 Drag and drop tasks between columns ("To Do", "In Progress", "Done")
+- 🧠 Task state is synced with backend (using Axios)
+- 📱 Fully responsive layout
 
 ---
 
-## 🛠️ Tech Stack
+## 🧱 Project Structure
 
-- **Frontend**: React + TypeScript + Tailwind CSS
-- **Drag-and-Drop**: [`@dnd-kit/core`](https://docs.dndkit.com/)
-- **Backend**: `json-server` for local mock API
-- **State Management**: Local state with hooks
+task-dashboard/ ├── src/ │ ├── components/ # Reusable UI (Button, Column, TaskCard, Modal) │ ├── pages/ # Board view │ ├── types/ # Shared TS interfaces │ ├── utils/api.ts # Axios instance │ └── App.tsx ├── public/ ├── db.json # Used only for local testing (optional) ├── server.js # For JSON Server (Render) └── package.json
 
----
+## 🧑‍💻 Getting Started Locally
 
-## 🧱 Architecture
-
-src/ │ ├── components/ // UI components (Button, Column, TaskCard, etc.) ├── pages/ // Main board page ├── types/ // Shared TypeScript types ├── App.tsx // Root component ├── main.tsx // Entry point └── db.json // Mock database (used with json-server)
-
-
-### Drag-and-Drop Flow
-
-1. `DndContext` wraps the board and listens for drag events
-2. Each `Column` is a droppable zone (`useDroppable`)
-3. Each `TaskCard` is draggable (`useDraggable`)
-4. On drop, task's `status` is updated in local state + backend (`json-server`)
-
----
-
-## 🧑‍💻 Getting Started
-
-### 1. Clone the repo
+### 1. Clone the repository
 
 ```bash
 git clone https://github.com:anooja62/task-dashboard-FE.git
-cd task-manager-dashboard
+cd task-dashboard
 
 2. Install dependencies
+
 npm install
 
-3. Start the mock backend (JSON Server)
-Make sure db.json is present in the root folder.
+3. Start the app locally (uses Render for backend)
 
-npx json-server --watch db.json --port 3000
-
-4. Start the React app
 npm run dev
 
-📂 Example JSON Format (db.json)
-{
-  "tasks": [
-    {
-      "id": "1",
-      "title": "Design wireframes",
-      "description": "Create wireframes for dashboard UI",
-      "status": "To Do"
-    }
-  ]
-}
+The app runs on: http://localhost:5173
+API calls are sent to: https://tasks-api-0wyn.onrender.com
+
+🌐 Backend API (Hosted on Render)
+Deployed at: https://tasks-api-0wyn.onrender.com
+
+Powered by json-server
+
+Example endpoint:
+
+GET https://tasks-api-0wyn.onrender.com/tasks
+
+

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Task } from "../types/task";
-
+import { v4 as uuidv4 } from "uuid";
 interface TaskModalProps {
   onClose: () => void;
   onSave: (task: Task) => void;
@@ -15,7 +15,7 @@ const TaskModal: React.FC<TaskModalProps> = ({ onClose, onSave }) => {
     e.preventDefault();
     if (!title.trim()) return;
     const newTask: Task = {
-      id: Date.now(),
+      id: uuidv4(),
       title,
       description,
       status,

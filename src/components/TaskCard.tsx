@@ -7,14 +7,15 @@ interface TaskCardProps {
 }
 
 const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
-  const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
+  const { setNodeRef, attributes, listeners, transform, isDragging } = useDraggable({
     id: task.id.toString(),
   });
 
   const style = {
     transform: `translate(${transform?.x ?? 0}px, ${transform?.y ?? 0}px)`,
     opacity: isDragging ? 0.5 : 1,
-    zIndex: isDragging ? 100 : 0,
+    zIndex: isDragging ? 50 : 1,
+    transition: "all 0.2s ease",
   };
 
   return (
@@ -23,10 +24,12 @@ const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
       {...attributes}
       {...listeners}
       style={style}
-      className="bg-white p-3 sm:p-4 rounded shadow hover:shadow-lg cursor-grab active:cursor-grabbing transition-all duration-200"
+      className="bg-white p-3 sm:p-4 rounded shadow-md cursor-grab active:cursor-grabbing"
     >
       <h3 className="font-semibold text-base sm:text-lg">{task.title}</h3>
-      {task.description && <p className="text-sm text-gray-600 mt-1">{task.description}</p>}
+      {task.description && (
+        <p className="text-sm text-gray-600 mt-1">{task.description}</p>
+      )}
     </div>
   );
 };

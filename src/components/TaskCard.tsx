@@ -24,11 +24,11 @@ const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
       {...attributes}
       {...listeners}
       style={style}
-      className="bg-white p-3 sm:p-4 rounded shadow-md cursor-grab active:cursor-grabbing"
+      className="bg-white p-3 sm:p-4 rounded-lg shadow-sm hover:shadow-md cursor-grab active:cursor-grabbing transition-all duration-200"
     >
-      <h3 className="font-semibold text-base sm:text-lg">{task.title}</h3>
+      <h3 className="font-semibold text-base sm:text-lg md:text-xl">{task.title}</h3>
       {task.description && (
-        <p className="text-sm text-gray-600 mt-1">{task.description}</p>
+        <p className="text-sm sm:text-base text-gray-600 mt-1">{task.description}</p>
       )}
     </div>
   );

@@ -27,33 +27,25 @@ export default function Board() {
       description: task.description,
       status: task.status,
     });
-  
     setTasks((prev) => [...prev, res.data]);
   };
-  
-  
 
   const updateTaskStatus = async (id: string, newStatus: string) => {
     const task = tasks.find((t) => t.id === id);
     if (!task || task.status === newStatus) return;
-  
+
     const updatedTask = { ...task, status: newStatus };
-  
     await axios.put(`http://localhost:3000/tasks/${id}`, updatedTask);
-  
     setTasks((prevTasks) =>
       prevTasks.map((t) => (t.id === id ? updatedTask : t))
     );
   };
-  
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
     if (!over) return;
 
     const draggedId = active.id.toString();
-    const task = tasks.find((t) => t.id === draggedId);
-    
     const dropZoneId = over.id.toString();
 
     console.log("Dragged ID:", draggedId);
@@ -64,13 +56,15 @@ export default function Board() {
 
   return (
     <div className="p-4 max-w-7xl mx-auto min-h-screen">
-      <div className="flex justify-between items-center mb-4">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 mb-4">
         <h1 className="text-2xl font-bold">Task Manager</h1>
         <Button onClick={() => setModalOpen(true)}>Add Task</Button>
       </div>
 
+      {/* Drag-and-Drop Context */}
       <DndContext collisionDetection={pointerWithin} onDragEnd={handleDragEnd}>
-        <div className="flex gap-4 overflow-x-auto">
+        <div className="flex flex-col gap-4 md:grid md:grid-cols-3 md:gap-4 overflow-y-auto md:overflow-visible max-h-[80vh] pb-2">
           {STATUSES.map((status) => (
             <Column
               key={status}
@@ -82,6 +76,7 @@ export default function Board() {
         </div>
       </DndContext>
 
+      {/* Modal */}
       {isModalOpen && <TaskModal onClose={() => setModalOpen(false)} onSave={addTask} />}
     </div>
   );

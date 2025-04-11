@@ -22,13 +22,13 @@
       "id": "1744302858397",
       "title": "Test",
       "description": "ABC",
-      "status": "Done"
+      "status": "To Do"
     },
     {
       "id": "1744303698131",
       "title": "New Task",
       "description": "in progress",
-      "status": "To Do"
+      "status": "In Progress"
     }
   ]
 }

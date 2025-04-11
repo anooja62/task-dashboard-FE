@@ -8,7 +8,7 @@ export const Button: React.FC<ButtonProps> = ({ children, className = "", ...pro
   return (
     <button
       {...props}
-      className={`w-full sm:w-auto text-sm sm:text-base px-4 py-2 sm:px-6 sm:py-2.5 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-200 ${className}`}
+      className={`w-full sm:w-auto text-sm sm:text-base px-4 py-2 sm:px-6 sm:py-2.5 bg-black text-white rounded hover:bg-gray-800 transition duration-200 ${className}`}
     >
       {children}
     </button>
